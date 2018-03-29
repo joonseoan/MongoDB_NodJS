@@ -29,7 +29,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     // Name the database.
     const db = client.db('TodoApp');
 
-    
+    // 1)
     /*
     // However, it does still not create a physical database.
     // Down below the "collection" which is a container of data
@@ -62,8 +62,12 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 
     // ======================== Challenge =========================
 
+    // 2)
+    /*
     db.collection('UserProfile').insertOne({
 
+        // Arbitraly, we can create
+        // _id : 123, 
         name : 'Andrew',
         age : 25,
         location : 'Tronto'
@@ -78,8 +82,15 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 
         console.log(JSON.stringify(result.ops, undefined, 4));
 
+        // retreive the specific id
+        //  1) retrieve the first document of "ops"
+        console.log(result.ops[0]._id);
+
+        console.log(result.ops[0]._id.getTimestamp());
 
     });
+
+    */
 
     client.close();
 });
