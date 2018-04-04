@@ -29,7 +29,7 @@ console.log('starting mongodb_connect_2');
 const { MongoClient, ObjectID } = require('mongodb');
 
 // It is simpler way to get an objetID than  in 1).
-// We can get the object ID without create the document.
+// We can get the object ID without creating the document.
 // const obj = new ObjectID();
 // console.log('obj: ', obj)
 

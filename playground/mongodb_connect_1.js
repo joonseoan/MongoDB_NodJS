@@ -30,15 +30,16 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     const db = client.db('TodoApp');
 
     // 1)
-    /*
+    
     // However, it does still not create a physical database.
     // Down below the "collection" which is a container of data
     //       will create the visible database.
     // Name it and insert data.
+    /*
     db.collection('Todos').insertOne({
 
-        text : 'Something to do',
-        completed: false
+        text : 'to do and initiate programming',
+        completed: true
 
     }, (err, result) => {
 
@@ -48,29 +49,31 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
         
         }
 
-        // "ops" attribute stores all "documentation"
-        console.log(JSON.stringify((result.ops), undefined, 4));
+        // "ops" attribute stores all "documentation" ****as an array
+        console.log(JSON.stringify(result.ops, undefined, 4));
 
     });
+    */
 
     // Complete the connection to MongoDB server.
     // Finally we will have the message in "cmd"
     //      "2018-03-28T11:47:00.662-0400 I NETWORK  [conn6] end connection 127.0.0.1:64243 (4 connections now open)"
-    client.close();
+    
+    // client.close();
 
-    */
+    
 
     // ======================== Challenge =========================
 
     // 2)
-    /*
+    
     db.collection('UserProfile').insertOne({
 
         // Arbitraly, we can create
         // _id : 123, 
-        name : 'Andrew',
+        name : 'Eunmi',
         age : 25,
-        location : 'Tronto'
+        location : 'Vancouver'
 
     }, (err, result) => {
 
@@ -90,9 +93,9 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 
     });
 
-    */
+    
 
-    client.close();
+    // client.close();
 });
 
 /**

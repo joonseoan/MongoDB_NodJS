@@ -53,6 +53,6 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 
     }).then( result => console.log(JSON.stringify(result, undefined, 4)),
         
-    err => console.log('Unable to update.'))
+    err => console.log('Unable to update.'));
 
 });

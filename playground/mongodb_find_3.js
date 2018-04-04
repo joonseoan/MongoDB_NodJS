@@ -56,6 +56,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     });
     */
 
+    /*
     // 3) toCount in toArray
     db.collection('Todos').find().count().then((count) => {
 
@@ -65,9 +66,11 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 
         console.log('Unable to get "count".');
 
-    });
+    });*/
 
+    
     // 4) -------------------- Challenge --------------------
+    
     db.collection('UserProfile').find({ name : 'Andrew'}).toArray().then((docs)=>{
         
         console.log('User Profile Data');
@@ -88,7 +91,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 
     // The find() above returns "MongoDB cursor"
     // The cursor has a ton of methods to get specific "documents"
-    // Theyu are sorts of tools to get the data the user wants.
+    // They are sorts of tools to get the data the user wants.
     
     // "toArray" is the most popular one to make an arry containing the object value..
     //      => 
@@ -110,7 +113,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
      */
 
     // "toArray" returns a promise.
-    /*
+    /* 
     db.collection('Todos').find().toArray().then((docs) => {
 
         console.log('Todos: ');
@@ -122,6 +125,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
         console.log('unable to fetch Todos', err);
 
     });
+    
     */
 
     //client.close();
