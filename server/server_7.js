@@ -115,6 +115,8 @@ module.exports = { app };
         - git add 
         - git commit
         - git push
+        - heroku git:remote -a [app name: mysterious-oasis-90352]
         - git push heroku master
+        - heroku logs
         
      */ 
