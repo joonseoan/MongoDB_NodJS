@@ -1,4 +1,4 @@
-console.log('starting server_7.js working with db/mongoose_3.js');
+console.log('starting server_8.js working with db/mongoose_3.js');
 console.log('This is to deploy Heroku server');
 
 const express = require('express');
@@ -11,8 +11,7 @@ const { TodoChallenge } = require('./models/user_3');
 
 const app = express();
 
-// 1) Setup port for heroku
-const port = process.env.PORT || 3000;
+
 
 
 app.use(bodyParser.json());
@@ -78,46 +77,33 @@ app.get('/todoso/:id', (req, res) => {
 
 });
 
-// 2) Heroku Setup : 3000 =>  port
-app.listen(port, () => {
+app.delete('/todoso/:id', (req, res) => {
 
-    console.log(`Started on port : ${port}`);
+    console.log(req.params.id);
+
+    var id = req.params.id;
+
+    if(!ObjectID.isValid(id)) return res.status(404).send();
+
+    Todoso.findByIdAndRemove(id).then((result) => {
+
+        if(!result) return res.status(404).send();
+
+        res.send(result);
+
+    }).catch(err => res.status(400).send(err));
+
+});
+
+
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+
+    console.log(`Started on port : ${PORT}`);
 
 });
 
 
 module.exports = { app };
-
-//3) Package.json
-/**
- * (1) Underline "scripts",
- *      Insert "start" : "node server/server_7.js",
- * 
- * (2) Below "scripts" and above "author"
- *      Add another object
- *      },
- *      "engines": {
- *          "node": "8.9.4"
- *       }
- * 
- */
-
- //4) Add on MLab to Heroku to interact with mongodb. 
-    // https://elements.heroku.com/addons/mongolab
-    // In order to do so, we are required to configure "add-on"
-
-    /**
-     * In terminal,
-     *  - heroku create
-     *  - heroku addons:create mongolab:sandbox --app [app name] // which is free
-        - heroku config --app [app name] => populated "Mongodb URI" 
-        - At mongoose_3.js, type URI like "mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/TodoApp');""
-       
-        - git add 
-        - git commit
-        - git push
-        - heroku git:remote -a [app name: mysterious-oasis-90352]
-        - git push heroku master
-        - heroku logs
-        
-     */ 
