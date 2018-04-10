@@ -1,19 +1,16 @@
 console.log('start mongoose_queries.js');
 console.log('Also, need to validate object ID');
 
-
-
 /**
  *  Visit mongoosejs.com -> doc -> queries.
  *  We need to understand the queries methods.
  */
 
-
 const { mongoose } = require('../server/db/mongoose_3');
 const { Todoso } = require('../server/models/todoso_3');
 const { TodoChallenge } = require('../server/models/user_3');
 
-// In order for the user input the ID
+// In order for the user to input the ID
 const  { ObjectID } = require('mongodb');
 
 var id = '5ac654544a01912ce825b900';
@@ -22,7 +19,6 @@ var id = '5ac654544a01912ce825b900';
 //      have an error message. To validate the error
 //      we need to use "catch".
 if (!ObjectID.isValid(id)) console.log('ID is invalid/')
-
 
 /*
 // When we try to find the overlapped IDs, it could be useful.
@@ -69,7 +65,7 @@ Todoso.findById(id).then(findByID => {
 
 })
 
-// When we have an errotic id format = > we will
+// When we have an error caused by any reasons = > we will
 //      have an error message. To validate the error
 //      we need to use "catch".
 .catch(err => console.log(err));
@@ -98,8 +94,8 @@ TodoChallenge.findOne({
 
 }).then (user => console.log('user.findOne(): ', user));
 
-TodoChallenge.findById(userID)
-    .then( (bYID) => {
+
+TodoChallenge.findById(userID).then( (bYID) => {
         
         if(!bYID) console.log('Cannot find the ID');
 
