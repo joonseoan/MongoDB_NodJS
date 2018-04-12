@@ -1,24 +1,30 @@
-/*
+console.log('starting server_9.test.js');
 
-console.log('starting server_8.test.js');
-
-const expect = require('expect');
+const expect = require('expect'); // MUST USE npm install expect@1.20.2 --save-dev (so far)
 const request = require('supertest');
 const { ObjectID } = require('mongodb');
 
-const { app } = require('../server/server_8');
+const { app } = require('../server/server_9');
 const { Todoso } = require('../server/models/todoso_3');
 
 const todoso = [
     
-    { _id : new ObjectID(), 
-      text: 'First test todo' }, 
+    { 
+        
+      _id : new ObjectID(), 
+      text: 'First test todo'
     
-    { _id : new ObjectID(),
-      text: 'Second test todo' }
+    }, 
+    { 
+
+      _id : new ObjectID(),
+      text: 'Second test todo',
+      completed : true,
+      completedAt : 333
+
+    }
 
 ];
-  
 
 beforeEach((done) => {
   
@@ -192,7 +198,7 @@ describe('Delete /todoso/:id', () => {
                 Todoso.findById(hexID).then((todoso) => {
 
                     expect(todoso).toBe(null);
-                    expect(todoso).toBeNull(); // toNotExist deprecated!!!
+                    expect(todoso).toNotExist(); // toNotExist deprecated!!!
                     done();
 
                 }).catch(err => done(err));
@@ -226,4 +232,47 @@ describe('Delete /todoso/:id', () => {
         });
     
 });  
-*/
+
+// =========================================== PATCH/TODOSO/:ID ======================================
+
+describe('PATCH /todoso/:id', () => {
+
+    it('It shoud have correct update', (done) => {
+
+        const hexID = todoso[0]._id.toHexString();
+        const completed = true;
+        const text = 'cheer up';
+
+        request(app)
+            .patch(`/todoso/${hexID}`)
+            .expect(200)
+            .send({ text, completed })
+            .expect(res => {
+
+                expect(res.body.updated.text).toBe(text);
+                expect(res.body.updated.completed).toBe(true); // (true)
+                expect(res.body.updated.completedAt).toBeA('number');
+                //expect(res.body.updated.completedAt).toNotMatch(todoso[1].completedAt);
+
+            }).end(done); 
+            
+    });
+
+    it('it should clear completedAt when todoso is not completed', (done) => {
+
+        const hexID = todoso[1]._id.toHexString();
+        const completed = false;
+        const text = 'what are you doing?';
+
+        request(app)
+            .patch(`/todoso/${hexID}`)
+            .expect(200)
+            .send({ text, completed })
+            .expect(res => {
+
+                expect(res.body.updated.completed).toBe(false);
+                expect(res.body.updated.completedAt).toNotExist();
+
+            }).end(done);
+    });
+});
