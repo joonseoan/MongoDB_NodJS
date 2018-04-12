@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const Todoso = mongoose.model('Todoso', {
 
     text : {
-
+        
         type : String,
         required : true, 
         minlength : 1,
@@ -21,7 +21,8 @@ const Todoso = mongoose.model('Todoso', {
     completedAt : {
 
         type : Number,
-        default: null
+        default : false
+        
 
     }
 

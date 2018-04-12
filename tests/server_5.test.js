@@ -1,5 +1,5 @@
 
-console.log('starting server_5.test.js');
+/*console.log('starting server_5.test.js');
 
 const expect = require('expect');
 const request = require('supertest');
@@ -12,7 +12,7 @@ const request = require('supertest');
 const { app } = require('../server/server_5');
 const { Todoso } = require('../server/models/todoso_3');
 
-
+*/
 /**
  * Please, change "package.json" for the test!!!!!!! 
  * => go to the setup file.
@@ -22,6 +22,7 @@ const { Todoso } = require('../server/models/todoso_3');
 
 // Error!!!!
 
+/*
 const todoso = [
     
     {  text: 'First test todo' }, 
@@ -39,8 +40,9 @@ const todoso = [
         }).then(() => done());
   
 });
+*/
 
-
+/*
 describe('POST/todoso', () => {
 
     it('should create a new todoso', (done) => {
@@ -137,3 +139,4 @@ describe ('Get /todoso', () => {
 
     });
 });
+*/

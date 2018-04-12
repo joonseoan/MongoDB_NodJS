@@ -1,3 +1,5 @@
+/*
+
 console.log('starting server_6.test.js');
 
 const expect = require('expect');
@@ -138,7 +140,7 @@ describe('Get /todoso/:id', () => {
             .end(done)
 
         // 
-        /*
+        
         request(app)
             .get(`/todoso/${id}`)
             .expect(404)
@@ -149,7 +151,7 @@ describe('Get /todoso/:id', () => {
                 expect(res.body).toEqual({});
 
             })
-            .end(done);     */
+            .end(done);     
 
     });
 
@@ -166,4 +168,4 @@ describe('Get /todoso/:id', () => {
     });
     
 });
-
+*/
