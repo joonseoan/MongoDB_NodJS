@@ -1,5 +1,8 @@
-console.log('starting server_9.js working with db/mongoose_3.js');
-console.log('This is to deploy Heroku server');
+// In order to work together with config file.
+// Not need to get variable, because we do not use that in this file.
+require('./server_config/config');
+
+console.log('starting server_10.js working with db/mongoose_3.js');
 console.log('lodash added here');
 
 const express = require('express');
@@ -14,7 +17,6 @@ const { TodoChallenge } = require('./models/user_3');
 const app = express();
 
 app.use(bodyParser.json());
-
 
 // ================================= POST/TODOSO ===================================================================
 // 1) Once the user reach out the define url, it will send data / the user requst to the database over the server.
@@ -117,46 +119,18 @@ app.delete('/todoso/:id', (req, res) => {
 // It is really set in stone!!!
 app.patch('/todoso/:id', (req, res) => {
 
-    //----------------------------------------------- Request Setup before DB Update -------------------
     const id = req.params.id;
-
-    // Patch or Update can be maliciously used by the user.
-    // They can update the unecessary property 
-    //      that must be updated only by the system or programmer.
-    // Therefore, we need to prevent this case.
-    
-    // pick(object) ==> req.body is an object.
-    // Then, pick the properties that should be used by the user.
-    // It is not compulsory for the picked properties to be used by the user.    
+   
     const body = _.pick(req.body, ['text', 'completed']);
     
-    /** OR ***
-     * req.body:          { completed: true, text: 'dafasdf' }
-       body:        { text: 'dafasdf', completed: true }
-     */
     console.log('req.body:', req.body); //=> req.body: { completed: true }
     console.log('body:', body); // => body: { completed: true }
 
     //Validation
     if (!ObjectID.isValid(id)) return res.status(404).send();
 
-    // In order to put time stamp at "completedAt" from the system,
-    //      we should use "completed." ony If completed is "true",
-    //      time stamp will be added to "completedAt"
-
-       /**
-     * Checks if value is classified as a boolean primitive or object.
-     * 
-     * _.isBoolean(false);
-        // => true
- 
-       _.isBoolean(null);
-        // => false
-     * 
-     */
     if (_.isBoolean(body.completed) && body.completed) {
 
-        // getTime() : JavaScript time stamp from UTC. (ms)
         body.completedAt = new Date().getTime();
 
     } else {
@@ -166,19 +140,6 @@ app.patch('/todoso/:id', (req, res) => {
 
     }   
     
-    // --------------------------------- Query (Mongoose) and Update --------------------------------
-    
-    // "body" is defined above { 
-    //                           text : 'from user', 
-    //                           completed : from user
-    //                           completedAt : from Sytem
-    //                          }
-    // 
-    // "new" is an option of findByIdAndUpdate.
-    // "updated" is a updated "object" containing all "field data"
-    //******************************* the first meeting with "new"
-    // $set : {a, b}. => here "body" can be { completed: true, text: 'dafasdf' } 
-    //      or { completed: true } or { text: 'dafasdf' } because of "_.pick()""
     Todoso.findByIdAndUpdate(id, { $set : body }, { new : true }).then( updated => {
 
         if(!updated) return res.status(404).send();
@@ -195,8 +156,14 @@ app.patch('/todoso/:id', (req, res) => {
 
 
 
+// Current "process.env.PORT" can be a production environment
+// "3000;" can be a test or development environment.
 
-const PORT = process.env.PORT || 3000;
+// We can remove "3000" as we set up in "express" environment
+// 1) const PORT = process.env.PORT || 3000;
+
+// 2) It is production.
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
 
@@ -206,4 +173,5 @@ app.listen(PORT, () => {
 
 
 module.exports = { app };
+
 

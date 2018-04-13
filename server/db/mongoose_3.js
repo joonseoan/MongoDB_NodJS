@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/TodoApp');
+// We can remove 'mongodb://localhost:27017/TodoApp' as it set as test and development
+//      in "server_10.js"
+mongoose.connect(process.env.MONGODB_URI);
 
 module.exports = {
 
