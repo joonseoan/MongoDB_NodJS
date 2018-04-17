@@ -1,10 +1,11 @@
 // In order to work together with config file.
-// Not need to get variable, because we do not use that in this file.
+// Not need to get variable because we do not use that in this file.
 require('./server_config/config');
 
 console.log('starting server_10.js working with db/mongoose_3.js');
 console.log('lodash added here');
 
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { ObjectID } = require('mongodb');
@@ -17,6 +18,8 @@ const { TodoChallenge } = require('./models/user_3');
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use(cors());
 
 // ================================= POST/TODOSO ===================================================================
 // 1) Once the user reach out the define url, it will send data / the user requst to the database over the server.
@@ -46,7 +49,7 @@ app.post('/todoso', (req, res) => {
 });
 
 // ================================== GET/TODOSO ================================================================
-// 1) Once the user reach out the defined url, the server will pull out the data out of the data.
+// 1) Once the user reaches out the defined url, the server will pull out the data out of the data.
 // 2) Then, the server will send back the / show all the documents to the user.
 
 app.get('/todoso', (req, res) => {
@@ -69,8 +72,8 @@ app.get('/todoso', (req, res) => {
 });
 
 // ================================== GET/TODOSO/:ID ================================================================
-// 1) Once the user reach out the defined url/:id, the server will pull out the user's requested / specified data out of the data.
-// 2) Then, the server will send back the / show the document to the user.
+// 1) Once the user reaches out the defined url/:id, the server will pull out the user's requested / specified data out of the data.
+// 2) Then, the server will send back / show the document to the user.
 
 app.get('/todoso/:id', (req, res) => {
 
@@ -82,7 +85,6 @@ app.get('/todoso/:id', (req, res) => {
 
         if (!byID) return res.status(404).send();
 
-        console.log('byID: ;;;;;;;; _id of the main contents : ', byID._id);
         res.send({ byID });
 
     }).catch( err => res.status(400).send());
@@ -121,6 +123,7 @@ app.patch('/todoso/:id', (req, res) => {
 
     const id = req.params.id;
    
+    //************************* 
     const body = _.pick(req.body, ['text', 'completed']);
     
     console.log('req.body:', req.body); //=> req.body: { completed: true }
@@ -135,7 +138,7 @@ app.patch('/todoso/:id', (req, res) => {
 
     } else {
 
-        body.completed = false;
+        // body.completed = false;
         body.completedAt = null;
 
     }   

@@ -199,7 +199,7 @@ describe('Delete /todoso/:id', () => {
                 Todoso.findById(hexID).then((todoso) => {
 
                     expect(todoso).toBe(null);
-                    expect(todoso).toNotExist(); // toNotExist deprecated!!!
+                    expect(todoso).toNotExist(); // toNotExist deprecated, now by the way!!!
                     done();
 
                 }).catch(err => done(err));

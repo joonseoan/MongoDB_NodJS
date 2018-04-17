@@ -3,13 +3,14 @@ console.log('It is for separate database tests for the application');
 // So far here we had two app/node environment, "production / development"
 // They can be swtiched in terms of the app running enviroment.
 // For instance, MongoDB_URI can be used for production or development environment.
-// Depending on the purpose of the current app status, we should specify the app environment.
+// Depending on the purpose of the current app development status,
+//   we should specify the app environment.
 
 // From now on then, we will add "test" environment to create new database which can be independantely verified.
 
 // ======================= NODE_ENV ======================
 // "NODE_ENV" : "NODE_ENV" is an environment variable made popular by the express webserver framework
-// For instance,  "process.env.NODE_ENV" can be "production" || "development" || "test"
+// "process.env.NODE_ENV" can be "production" || "development" || "test"
 
 // We will use "NODE_ENV" to test database in MongoDB here. 
 // Therfore, we need to get NODE_ENV swtiched to "test" environment
@@ -20,7 +21,7 @@ console.log('It is for separate database tests for the application');
 // By default, if it is not "production" environment, it will be set to "development" environment
 const env = process.env.NODE_ENV || 'development';
 
-// = > 1. process.env.***** development (Because no connection to the server, heroku)
+// => 1. process.env.***** development (Because no connection to the server, heroku)
 console.log('1. process.env.*****', env);
 
 // In case of development environment, we can drill down a little bit further like below
